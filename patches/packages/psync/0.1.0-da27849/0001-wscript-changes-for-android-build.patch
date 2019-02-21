@@ -1,0 +1,50 @@
+From 1b85db52311280b6918c1c2a5169577f39abdb51 Mon Sep 17 00:00:00 2001
+From: Ashlesh Gawande <agawande@memphis.edu>
+Date: Thu, 21 Feb 2019 16:58:26 -0600
+Subject: [PATCH] wscript: changes for android build
+
+---
+ wscript | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/wscript b/wscript
+index 70e0b5b..f0ca601 100644
+--- a/wscript
++++ b/wscript
+@@ -24,16 +24,14 @@ def configure(conf):
+                'default-compiler-flags', 'boost',
+                'doxygen', 'sphinx_build'])
+ 
+-    if 'PKG_CONFIG_PATH' not in os.environ:
+-        os.environ['PKG_CONFIG_PATH'] = Utils.subst_vars('${LIBDIR}/pkgconfig', conf.env)
+-
+-    conf.check_cfg(package='libndn-cxx', args=['--cflags', '--libs'],
+-                   uselib_store='NDN_CXX', mandatory=True)
++    conf.add_os_flags("LIB_NDN_CXX")
++    conf.add_os_flags("CXXFLAGS_NDN_CXX")
++    conf.add_os_flags("LINKFLAGS_NDN_CXX")
+ 
+     conf.env['WITH_TESTS'] = conf.options.with_tests
+     conf.env['WITH_EXAMPLES'] = conf.options.with_examples
+ 
+-    boost_libs = 'system thread log log_setup'
++    boost_libs = 'system thread log log_setup iostreams'
+     if conf.env['WITH_TESTS']:
+         conf.define('WITH_TESTS', 1);
+         boost_libs += ' unit_test_framework'
+@@ -54,7 +52,12 @@ def configure(conf):
+     conf.write_config_header('PSync/detail/config.hpp')
+ 
+ def build(bld):
++    version(bld)
++
+     bld.shlib(
++        name='PSync',
++        vnum=VERSION_BASE,
++        cnum=VERSION_BASE,
+         target='PSync',
+         source =  bld.path.ant_glob('PSync/**/*.cpp'),
+         use = 'BOOST NDN_CXX',
+-- 
+2.17.1
+
