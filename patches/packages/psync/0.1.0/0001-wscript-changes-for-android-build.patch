@@ -1,17 +1,17 @@
-From 1b85db52311280b6918c1c2a5169577f39abdb51 Mon Sep 17 00:00:00 2001
+From abc95d236dd50dbd0b7baf018c412b49a59d24a2 Mon Sep 17 00:00:00 2001
 From: Ashlesh Gawande <agawande@memphis.edu>
 Date: Thu, 21 Feb 2019 16:58:26 -0600
 Subject: [PATCH] wscript: changes for android build
 
 ---
- wscript | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ wscript | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/wscript b/wscript
-index 70e0b5b..f0ca601 100644
+index 1307138..f0ca601 100644
 --- a/wscript
 +++ b/wscript
-@@ -24,16 +24,14 @@ def configure(conf):
+@@ -24,11 +24,9 @@ def configure(conf):
                 'default-compiler-flags', 'boost',
                 'doxygen', 'sphinx_build'])
  
@@ -26,12 +26,6 @@ index 70e0b5b..f0ca601 100644
  
      conf.env['WITH_TESTS'] = conf.options.with_tests
      conf.env['WITH_EXAMPLES'] = conf.options.with_examples
- 
--    boost_libs = 'system thread log log_setup'
-+    boost_libs = 'system thread log log_setup iostreams'
-     if conf.env['WITH_TESTS']:
-         conf.define('WITH_TESTS', 1);
-         boost_libs += ' unit_test_framework'
 @@ -54,7 +52,12 @@ def configure(conf):
      conf.write_config_header('PSync/detail/config.hpp')
  

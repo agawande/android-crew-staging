@@ -2,9 +2,9 @@ class Psync < Package
 
   desc "PSync library"
   homepage "https://named-data.net/doc/PSync/"
-  url 'git://github.com/named-data/PSync.git|git_commit:da278499792985d8d78b3b89e44828c27f29f65f'
+  url 'git://github.com/named-data/PSync.git|git_commit:f375bcc7f2fd129af06c21f5f866470cfe142df6'
 
-  release version: '0.1.0-da27849', crystax_version: 1
+  release version: '0.1.0', crystax_version: 2
 
   depends_on 'boost'
   depends_on 'ndn_cxx'
